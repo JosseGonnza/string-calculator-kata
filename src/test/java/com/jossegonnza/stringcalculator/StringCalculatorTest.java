@@ -22,4 +22,14 @@ class StringCalculatorTest {
 
         assertEquals(4, result);
     }
+
+    @Test
+    void shouldReturnSumWhenTwoNumbersProvidedSeparatedWithComma() {
+        StringCalculator stringCalculator = new StringCalculator();
+
+        int result = stringCalculator.add("1,2");
+
+        assertEquals(3, result);
+    }
+
 }
