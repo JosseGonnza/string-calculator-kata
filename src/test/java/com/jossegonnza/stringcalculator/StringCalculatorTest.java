@@ -13,4 +13,13 @@ class StringCalculatorTest {
 
         assertEquals(0, result);
     }
+
+    @Test
+    void shouldReturnNumberValueWhenSingleNumberProvided() {
+        StringCalculator stringCalculator = new StringCalculator();
+
+        int result = stringCalculator.add("4");
+
+        assertEquals(4, result);
+    }
 }
