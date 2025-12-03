@@ -32,4 +32,13 @@ class StringCalculatorTest {
         assertEquals(3, result);
     }
 
+    @Test
+    void shouldReturnSumWhenThreeNumbersProvided() {
+        StringCalculator stringCalculator = new StringCalculator();
+
+        int result = stringCalculator.add("1,2,3");
+
+        assertEquals(6, result);
+    }
+
 }
