@@ -26,6 +26,7 @@ public class StringCalculator {
             if (value < 0) {
                 throw new IllegalArgumentException("negatives not allowed: " + value);
             }
+            if (value > 1000) return 0;
             return value;
         } else {
             String[] parts = nomalized.split(",");
