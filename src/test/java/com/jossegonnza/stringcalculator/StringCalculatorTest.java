@@ -137,4 +137,15 @@ class StringCalculatorTest {
 
         assertEquals(0, result);
     }
+
+    @Test
+    void shouldSupportCustomSeparatorWithArbitraryLengthBetweenBrackets() {
+        StringCalculator calculator = new StringCalculator();
+
+        int result = calculator.add("//[***]\n1***2***3");
+
+        assertEquals(6, result);
+    }
+
+
 }
