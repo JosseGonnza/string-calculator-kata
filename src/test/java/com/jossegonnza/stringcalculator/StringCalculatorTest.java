@@ -59,4 +59,12 @@ class StringCalculatorTest {
         assertEquals(6, result);
     }
 
+    @Test
+    void shouldSupportOnlyNewLineAsSeparator() {
+        StringCalculator calculator = new StringCalculator();
+
+        int result = calculator.add("1\n2\n3");
+
+        assertEquals(6, result);
+    }
 }
