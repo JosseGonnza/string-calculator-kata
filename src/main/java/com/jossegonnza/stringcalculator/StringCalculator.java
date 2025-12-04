@@ -16,20 +16,24 @@ public class StringCalculator {
             String separator = numbers.substring(2, newLine);
             String rest = numbers.substring(newLine + 1);
 
+            if (numbers.contains("[")) {
+                separator = numbers.substring(3, newLine - 1);
+            }
+
             String[] parts = rest.split(Pattern.quote(separator));
             return getSum(parts);
         }
 
-        String nomalized = numbers.replace("\n", ",");
-        if (!nomalized.contains(",")) {
-            int value = Integer.parseInt(nomalized);
+        String normalized = numbers.replace("\n", ",");
+        if (!normalized.contains(",")) {
+            int value = Integer.parseInt(normalized);
             if (value < 0) {
                 throw new IllegalArgumentException("negatives not allowed: " + value);
             }
             if (value > 1000) return 0;
             return value;
         } else {
-            String[] parts = nomalized.split(",");
+            String[] parts = normalized.split(",");
             return getSum(parts);
         }
     }

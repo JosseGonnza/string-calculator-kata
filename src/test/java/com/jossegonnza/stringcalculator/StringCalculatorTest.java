@@ -142,9 +142,22 @@ class StringCalculatorTest {
     void shouldSupportCustomSeparatorWithArbitraryLengthBetweenBrackets() {
         StringCalculator calculator = new StringCalculator();
 
-        int result = calculator.add("//[***]\n1***2***3");
+        int result1 = calculator.add("//[***]\n1***2***3");
+        int result2 = calculator.add("//[**]\n1**2**3");
+        int result3 = calculator.add("//[----]\n1----2----3");
+        int result4 = calculator.add("//[ñ]\n1ñ2ñ3");
 
-        assertEquals(6, result);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> calculator.add("//[***]\n1***-2***-3")
+        );
+
+        assertEquals(6, result1);
+        assertEquals(6, result2);
+        assertEquals(6, result3);
+        assertEquals(6, result4);
+
+        assertEquals("negatives not allowed: -2, -3", exception.getMessage());
     }
 
 
