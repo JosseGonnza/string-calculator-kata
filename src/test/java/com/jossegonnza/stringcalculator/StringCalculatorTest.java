@@ -3,6 +3,7 @@ package com.jossegonnza.stringcalculator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StringCalculatorTest {
     @Test
@@ -84,5 +85,17 @@ class StringCalculatorTest {
         int result = calculator.add("//@\n1@2@3");
 
         assertEquals(6, result);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSingleNegativeNumberIsProvided() {
+        StringCalculator calculator = new StringCalculator();
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> calculator.add("-1")
+        );
+
+        assertEquals("negatives not allowed: -1", exception.getMessage());
     }
 }
