@@ -20,15 +20,19 @@ public class StringCalculator {
         }
 
         String nomalized = numbers.replace("\n", ",");
-        if (nomalized.contains(",")) {
+        if (!nomalized.contains(",")) {
+            int value = Integer.parseInt(nomalized);
+            if (value < 0) {
+                throw new IllegalArgumentException("negatives not allowed: " + value);
+            }
+            return value;
+        } else {
             String[] parts = nomalized.split(",");
             int sum = 0;
             for (String part : parts) {
                 sum += Integer.parseInt(part);
             }
             return sum;
-        } else {
-            return Integer.parseInt(nomalized);
         }
     }
 }
