@@ -50,5 +50,13 @@ class StringCalculatorTest {
         assertEquals(45, result);
     }
 
+    @Test
+    void shouldSupportNewLineAsSeparatorTogetherWithComma() {
+        StringCalculator calculator = new StringCalculator();
+
+        int result = calculator.add("1\n2,3");
+
+        assertEquals(6, result);
+    }
 
 }
