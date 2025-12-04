@@ -76,4 +76,13 @@ class StringCalculatorTest {
 
         assertEquals(3, result);
     }
+
+    @Test
+    void shouldSupportDifferentCustomSeparator() {
+        StringCalculator calculator = new StringCalculator();
+
+        int result = calculator.add("//@\n1@2@3");
+
+        assertEquals(6, result);
+    }
 }
