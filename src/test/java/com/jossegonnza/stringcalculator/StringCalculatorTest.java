@@ -119,4 +119,14 @@ class StringCalculatorTest {
 
         assertEquals(2, result);
     }
+
+    @Test
+    void shouldIncludeNumberOneThousandInSum() {
+        StringCalculator calculator = new StringCalculator();
+
+        int result = calculator.add("1000,2");
+
+        assertEquals(1002, result);
+    }
+
 }
