@@ -38,6 +38,7 @@ public class StringCalculator {
         List<String> negatives = new ArrayList<>();
         for (String part : parts) {
             int value = Integer.parseInt(part);
+            if (value > 1000) continue;
             if (value < 0) {
                 negatives.add(part);
             }
