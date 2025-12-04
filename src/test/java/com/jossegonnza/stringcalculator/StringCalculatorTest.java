@@ -129,4 +129,12 @@ class StringCalculatorTest {
         assertEquals(1002, result);
     }
 
+    @Test
+    void shouldReturnZeroWhenThereAreOnlyOneThousand() {
+        StringCalculator calculator = new StringCalculator();
+
+        int result = calculator.add("1001");
+
+        assertEquals(0, result);
+    }
 }
