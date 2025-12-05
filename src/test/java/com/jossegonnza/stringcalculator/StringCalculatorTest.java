@@ -160,5 +160,12 @@ class StringCalculatorTest {
         assertEquals("negatives not allowed: -2, -3", exception.getMessage());
     }
 
+    @Test
+    void shouldSupportMultipleSingleCharacterCustomSeparator() {
+        StringCalculator calculator = new StringCalculator();
 
+        int result = calculator.add("//[*][%]\n1*2%3");
+
+        assertEquals(6, result);
+    }
 }
