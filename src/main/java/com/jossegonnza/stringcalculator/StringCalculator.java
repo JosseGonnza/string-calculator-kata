@@ -16,11 +16,29 @@ public class StringCalculator {
             String separator = numbers.substring(2, newLine);
             String rest = numbers.substring(newLine + 1);
 
-            if (numbers.contains("[")) {
-                separator = numbers.substring(3, newLine - 1);
+            List<String> separators = new ArrayList<>();
+
+            if (separator.startsWith("[") && separator.endsWith("]")) {
+                int index = 0;
+                while (index < separator.length()) {
+                    int start = separator.indexOf('[', index);
+                    if (start == -1) break;
+
+                    int end = separator.indexOf(']', start);
+                    String sep = separator.substring(start + 1, end);
+                    separators.add(sep);
+
+                    index = end + 1;
+                }
+            } else {
+                separators.add(separator);
             }
 
-            String[] parts = rest.split(Pattern.quote(separator));
+            String regex = separators.stream()
+                    .map(Pattern :: quote)
+                    .collect(Collectors.joining("|"));
+
+            String[] parts = rest.split(regex);
             return getSum(parts);
         }
 
@@ -51,7 +69,7 @@ public class StringCalculator {
         }
         if (!negatives.isEmpty()) {
             String message = negatives.stream()
-                    .map(String :: valueOf)
+                    .map(String::valueOf)
                     .collect(Collectors.joining(", "));
             throw new IllegalArgumentException("negatives not allowed: " + message);
         }
