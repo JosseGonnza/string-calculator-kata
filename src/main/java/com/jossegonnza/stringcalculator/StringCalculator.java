@@ -10,50 +10,47 @@ public class StringCalculator {
         if (numbers.isEmpty()) {
             return 0;
         }
+        String[] parts = numbers.startsWith("//")
+                ? splitWithCustomSeparators(numbers)
+                : splitWithDefaultSeparators(numbers);
+        return getSum(parts);
+    }
 
-        if (numbers.startsWith("//")) {
-            int newLine = numbers.indexOf("\n");
-            String separator = numbers.substring(2, newLine);
-            String rest = numbers.substring(newLine + 1);
-
-            List<String> separators = new ArrayList<>();
-
-            if (separator.startsWith("[") && separator.endsWith("]")) {
-                int index = 0;
-                while (index < separator.length()) {
-                    int start = separator.indexOf('[', index);
-                    if (start == -1) break;
-
-                    int end = separator.indexOf(']', start);
-                    String sep = separator.substring(start + 1, end);
-                    separators.add(sep);
-
-                    index = end + 1;
-                }
-            } else {
-                separators.add(separator);
-            }
-
-            String regex = separators.stream()
-                    .map(Pattern :: quote)
-                    .collect(Collectors.joining("|"));
-
-            String[] parts = rest.split(regex);
-            return getSum(parts);
-        }
-
+    private String[] splitWithDefaultSeparators(String numbers) {
         String normalized = numbers.replace("\n", ",");
         if (!normalized.contains(",")) {
-            int value = Integer.parseInt(normalized);
-            if (value < 0) {
-                throw new IllegalArgumentException("negatives not allowed: " + value);
-            }
-            if (value > 1000) return 0;
-            return value;
+            return new String[] {normalized};
         } else {
-            String[] parts = normalized.split(",");
-            return getSum(parts);
+            return normalized.split(",");
         }
+    }
+
+    private String[] splitWithCustomSeparators(String numbers) {
+        int newLine = numbers.indexOf("\n");
+        String separator = numbers.substring(2, newLine);
+        String rest = numbers.substring(newLine + 1);
+
+        List<String> separators = new ArrayList<>();
+
+        if (separator.startsWith("[") && separator.endsWith("]")) {
+            int index = 0;
+            while (index < separator.length()) {
+                int start = separator.indexOf('[', index);
+                if (start == -1) break;
+
+                int end = separator.indexOf(']', start);
+                String sep = separator.substring(start + 1, end);
+                separators.add(sep);
+
+                index = end + 1;
+            }
+        } else {
+            separators.add(separator);
+        }
+        String regex = separators.stream()
+                .map(Pattern::quote)
+                .collect(Collectors.joining("|"));
+        return rest.split(regex);
     }
 
     private static int getSum(String[] parts) {
