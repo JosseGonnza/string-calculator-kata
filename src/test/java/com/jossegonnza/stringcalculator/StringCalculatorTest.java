@@ -168,4 +168,15 @@ class StringCalculatorTest {
 
         assertEquals(6, result);
     }
+
+    @Test
+    void shouldSupportMultipleCustomSeparatorWithLongerLength() {
+        StringCalculator calculator = new StringCalculator();
+
+        int result1 = calculator.add("//[foo][bar]\n1foo2bar3");
+        int result2 = calculator.add("//[****][bar][--]\n1****2bar3--4");
+
+        assertEquals(6, result1);
+        assertEquals(10, result2);
+    }
 }
